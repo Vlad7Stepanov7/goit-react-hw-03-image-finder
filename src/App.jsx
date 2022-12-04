@@ -1,6 +1,8 @@
+import Box from "utils/Box";
+
 export const App = () => {
   return (
-    <div
+    <Box
       style={{
         height: '100vh',
         display: 'flex',
@@ -11,6 +13,6 @@ export const App = () => {
       }}
     >
       React homework template
-    </div>
+    </Box>
   );
 };
