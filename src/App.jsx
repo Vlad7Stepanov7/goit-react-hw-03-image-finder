@@ -32,7 +32,10 @@ export class App extends Component {
       const data = await getImages(currentSearch, page);
       
       const images = await data.hits;
-          
+        
+      if (images.length === 0) {
+        return this.notifyWarningInput();
+      }
       
       if (!this.isThereImages(data.totalHits, page)) {
         this.setState({ isShowLoadMore: false })
@@ -66,7 +69,9 @@ export class App extends Component {
       }))
   }
   
-  notifyWarning = () => toast.warning("You can't leave an empty field");
+  notifyWarningEmptyField = () => toast.warning("You can't leave an empty field");
+
+  notifyWarningInput = () => toast.warning("Please enter a valid name");
 
   notifyInfo = () => toast.info("No more images");
 
@@ -91,7 +96,7 @@ export class App extends Component {
      paddingBottom="24px"
     >
       
-      <Searchbar onSubmit={this.handleFormSubmit} notify={this.notifyWarning} />
+      <Searchbar onSubmit={this.handleFormSubmit} notify={this.notifyWarningEmptyField} />
 
       {gallery.length !== 0 &&
         <ImageGallery status={status} onClickLoadMore={this.handleLoadMore} isShowLoadMore={isShowLoadMore} >
